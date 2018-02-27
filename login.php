@@ -1,7 +1,11 @@
 <?php
 
 $check = file_get_contents("check.log");
-if(!$check) exit;
+if($check)
+{
+	echo "<h1>Gi&agrave; loggato. Per nuovo login, elimina il file check.log e aggiorna questa pagina.</h1>";
+	exit;
+}
 
 
 register_shutdown_function('failLogin');
