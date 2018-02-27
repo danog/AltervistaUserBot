@@ -52,7 +52,15 @@ while($running)
       $type = "privato";
       }
 
-      @include("_comandi.php");
+      try {
+        require "_comandi.php";
+      } catch(Exception $e) {
+        if (isset($chatID)) {
+          try {
+            sm($chatID,'<code>'.$e.'</code>');
+          } catch(Exception $e) { }
+        }
+      }
 
     }
 
