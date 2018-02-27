@@ -1,12 +1,10 @@
 <?php
 
-$check = file_get_contents("check.log");
-if($check)
+if(file_exists('session.madeline'))
 {
-	echo "<h1>Gi&agrave; loggato. Per nuovo login, elimina il file check.log e aggiorna questa pagina.</h1>";
-	exit;
+       echo "<h1>Gi&agrave; loggato. Per nuovo login, elimina il file session.madeline e aggiorna questa pagina.</h1>";
+       exit;
 }
-
 
 register_shutdown_function('failLogin');
 
@@ -22,7 +20,6 @@ if(isset($_POST["code"])){
 		$MadelineProto->complete_2fa_login($_POST["pwd2fa"]);
 	}
 	echo "<center><h1><br /><br />LOGIN EFFETTUATO</h1><br /><br /><h2><a href='updates.php'>AVVIA USERBOT</a></h2></center>";
-	file_put_contents("check.log", "ok");
 	$MadelineProto->serialize();
 	register_shutdown_function('finePagina');
 	exit;
