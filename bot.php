@@ -18,7 +18,9 @@ $version = file_get_contents("$url/.version");
 
 if (!file_exists(__DIR__.'/.version') || file_get_contents(__DIR__.'/.version') !== $version) {
     foreach (explode("\n", file_get_contents("$url/files")) as $file) {
-        copy("$url/$file", __DIR__."/$file");
+        if ($file) {
+        	copy("$url/$file", __DIR__."/$file");
+        }
     }
 }
 
