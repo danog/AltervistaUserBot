@@ -10,16 +10,7 @@ $locked = false;
 while (!$locked) {
     $locked = flock($lock, LOCK_EX | LOCK_NB);
     if (!$locked) {
-        ob_end_clean();
-        header('Connection: close');
-        ignore_user_abort(true);
-        ob_start();
-        echo '<html><body><h1>OK!</h1></body</html>';
-        $size = ob_get_length();
-        header("Content-Length: $size");
-        header('Content-Type: text/html');
-        ob_end_flush();
-        flush();
+        closeConnection();
 
         if ($try++ >= 30) {
             exit;
@@ -31,7 +22,6 @@ while (!$locked) {
 require __DIR__.'/madeline.php';
 require __DIR__.'/functions.php';
 
-register_shutdown_function('shutdown_function', $lock);
 
 $leggi_messaggi_in_uscita = false;
 

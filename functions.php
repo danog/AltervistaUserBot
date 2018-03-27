@@ -1,5 +1,18 @@
 <?php
 
+function closeConnection($message = 'OK!')
+        ob_end_clean();
+        header('Connection: close');
+        ignore_user_abort(true);
+        ob_start();
+        echo '<html><body><h1>'.$message.'</h1></body</html>';
+        $size = ob_get_length();
+        header("Content-Length: $size");
+        header('Content-Type: text/html');
+        ob_end_flush();
+        flush();
+}
+
 function shutdown_function($lock)
 {
     $a = fsockopen((isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] ? 'tls' : 'tcp').'://'.$_SERVER['SERVER_NAME'], $_SERVER['SERVER_PORT']);
