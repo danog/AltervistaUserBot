@@ -25,7 +25,7 @@ if (isset($msg) && isset($chatID)) {
             sm($chatID, explode(' ', $msg, 2)[1]);
         }
 
-        if ($msg == '!off' and (time() - $started) > 5)) {
+        if ($msg == '!off' and (time() - $started) > 5) {
             sm($chatID, 'Mi spengo.');
             exit;
         }

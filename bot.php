@@ -58,12 +58,13 @@ try {
                     $chatID = $update['update']['message']['to_id']['channel_id'];
                     $chatID = '-100'.$chatID;
                     $type = 'supergruppo';
-                }
-
-                if (isset($update['update']['message']['to_id']['chat_id'])) {
+                } else if (isset($update['update']['message']['to_id']['chat_id'])) {
                     $chatID = $update['update']['message']['to_id']['chat_id'];
                     $chatID = '-'.$chatID;
                     $type = 'gruppo';
+                } else (isset($update['update']['message']['to_id']['user_id'])) {
+                    $chatID = $update['update']['message']['from_id'];
+                    $type = 'privato';
                 }
 
                 try {
@@ -76,13 +77,6 @@ try {
                         }
                     }
                 }
-
-                if (isset($update['update']['message']['to_id']['user_id'])) {
-                    $chatID = $update['update']['message']['from_id'];
-                    $type = 'privato';
-                }
-
-                @include '_comandi.php';
             }
 
             if (isset($msg)) {
