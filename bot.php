@@ -3,6 +3,7 @@
 ini_set('display_errors', true);
 error_reporting(E_ALL);
 
+chdir(__DIR__);
 if (!file_exists(__DIR__.'/madeline.php') || !filesize(__DIR__.'/madeline.php')) {
     copy('https://phar.madelineproto.xyz/madeline.php', __DIR__.'/madeline.php');
 }
