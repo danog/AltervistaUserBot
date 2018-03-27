@@ -78,11 +78,11 @@ try {
                     $chatID = $update['update']['message']['to_id']['channel_id'];
                     $chatID = '-100'.$chatID;
                     $type = 'supergruppo';
-                } else if (isset($update['update']['message']['to_id']['chat_id'])) {
+                } elseif (isset($update['update']['message']['to_id']['chat_id'])) {
                     $chatID = $update['update']['message']['to_id']['chat_id'];
                     $chatID = '-'.$chatID;
                     $type = 'gruppo';
-                } else if (isset($update['update']['message']['to_id']['user_id'])) {
+                } elseif (isset($update['update']['message']['to_id']['user_id'])) {
                     $chatID = $update['update']['message']['from_id'];
                     $type = 'privato';
                 }
