@@ -22,7 +22,6 @@ while (!$locked) {
 require __DIR__.'/madeline.php';
 require __DIR__.'/functions.php';
 
-
 $leggi_messaggi_in_uscita = false;
 
 $lista_admin = [
