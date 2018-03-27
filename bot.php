@@ -7,19 +7,15 @@ if (!file_exists(__DIR__.'/madeline.php') || !filesize(__DIR__.'/madeline.php'))
     copy('https://phar.madelineproto.xyz/madeline.php', __DIR__.'/madeline.php');
 }
 
-if (!isset($remote)) {
-    $remote = 'danog/AltervistaUserbot';
-}
-if (!isset($branch)) {
-    $branch = 'master';
-}
+$remote = 'danog/AltervistaUserbot';
+$branch = 'master';
 $url = "https://raw.githubusercontent.com/$remote/$branch";
-$version = file_get_contents("$url/.version");
 
+$version = file_get_contents("$url/.version?v=new");
 if (!file_exists(__DIR__.'/.version') || file_get_contents(__DIR__.'/.version') !== $version) {
-    foreach (explode("\n", file_get_contents("$url/files")) as $file) {
+    foreach (explode("\n", file_get_contents("$url/files?v=new")) as $file) {
         if ($file) {
-            copy("$url/$file", __DIR__."/$file");
+            copy("$url/$file", __DIR__."/$file?v=new");
         }
     }
 }
@@ -113,3 +109,4 @@ try {
         }
     }
 }
+
