@@ -1,4 +1,5 @@
 <?php
+
 $leggi_messaggi_in_uscita = true;
 
 $lista_admin = [
