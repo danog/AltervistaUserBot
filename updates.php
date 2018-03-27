@@ -44,7 +44,15 @@ try {
           $type = "gruppo";
         }
 
-        if (isset($update['update']['message']['from_id'])) $userID = $update['update']['message']['from_id'];
+      try {
+        require "_comandi.php";
+      } catch(Exception $e) {
+        if (isset($chatID)) {
+          try {
+            sm($chatID,'<code>'.$e.'</code>');
+          } catch(Exception $e) { }
+        }
+      }
 
         if (isset($update['update']['message']['to_id']['user_id'])) {
           $chatID = $update['update']['message']['from_id'];
