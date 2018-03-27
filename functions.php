@@ -1,6 +1,6 @@
 <?php
 
-function closeConnection($message = 'OK!')
+function closeConnection($message = 'OK!') {
         ob_end_clean();
         header('Connection: close');
         ignore_user_abort(true);
