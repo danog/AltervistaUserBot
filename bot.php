@@ -48,7 +48,7 @@ while (!$locked) {
 require __DIR__.'/madeline.php';
 require __DIR__.'/functions.php';
 
-$MadelineProto = new \danog\MadelineProto\API('session.madeline');
+$MadelineProto = new \danog\MadelineProto\API('session.madeline', ['logger' => ['logger_level' => 5]]);
 $MadelineProto->start();
 
 register_shutdown_function('shutdown_function', $lock);
@@ -74,17 +74,14 @@ try {
                     $msg = $update['update']['message']['message'];
                 }
 
-                if (isset($update['update']['message']['to_id']['channel_id'])) {
-                    $chatID = $update['update']['message']['to_id']['channel_id'];
-                    $chatID = '-100'.$chatID;
-                    $type = 'supergruppo';
-                } elseif (isset($update['update']['message']['to_id']['chat_id'])) {
-                    $chatID = $update['update']['message']['to_id']['chat_id'];
-                    $chatID = '-'.$chatID;
-                    $type = 'gruppo';
-                } elseif (isset($update['update']['message']['to_id']['user_id'])) {
-                    $chatID = $update['update']['message']['from_id'];
-                    $type = 'privato';
+                try {
+                    $chatID = $MadelineProto->get_info($update['update']);
+                    $type = $chatID['type'];
+                    $chatID = $chatID['bot_api_id'];
+                } catch (Exception $e) {}
+
+                if (isset($update['update']['message']['from_id'])) {
+                    $userID = $update['update']['message']['from_id'];
                 }
 
                 try {
@@ -92,7 +89,7 @@ try {
                 } catch (Exception $e) {
                     if (isset($chatID)) {
                         try {
-                            sm($chatID, '<code>'.$e.'</code>');
+                            //sm($chatID, '<code>'.$e.'</code>');
                         } catch (Exception $e) {
                         }
                     }
@@ -114,7 +111,7 @@ try {
         }
     }
 } catch (\danog\MadelineProto\RPCErrorException $e) {
-    \danog\MadelineProto\Logger::log([(string) $e]);
+    \danog\MadelineProto\Logger::log((string) $e);
     if (in_array($e->rpc, ['SESSION_REVOKED', 'AUTH_KEY_UNREGISTERED'])) {
         foreach (glob('session.madeline*') as $path) {
             unlink($path);
