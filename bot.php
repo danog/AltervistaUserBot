@@ -5,15 +5,14 @@ require '_config.php';
 $MadelineProto = new \danog\MadelineProto\API('session.madeline');
 $MadelineProto->start();
 
-
 ob_end_clean();
-header("Connection: close");
+header('Connection: close');
 ignore_user_abort(true);
 ob_start();
-echo('<html><body><h1>OK!</h1></body</html>');
+echo '<html><body><h1>OK!</h1></body</html>';
 $size = ob_get_length();
 header("Content-Length: $size");
-header("Content-Type: text/html");
+header('Content-Type: text/html');
 ob_end_flush();
 flush();
 
