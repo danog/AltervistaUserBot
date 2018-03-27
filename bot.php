@@ -47,6 +47,7 @@ while (!$locked) {
 
 require __DIR__.'/madeline.php';
 require __DIR__.'/functions.php';
+require __DIR__.'/_config.php';
 
 $MadelineProto = new \danog\MadelineProto\API('session.madeline', ['logger' => ['logger_level' => 5]]);
 $MadelineProto->start();
@@ -78,8 +79,7 @@ try {
                     $chatID = $MadelineProto->get_info($update['update']);
                     $type = $chatID['type'];
                     $chatID = $chatID['bot_api_id'];
-                } catch (Exception $e) {
-                }
+                } catch (Exception $e) {}
 
                 if (isset($update['update']['message']['from_id'])) {
                     $userID = $update['update']['message']['from_id'];
