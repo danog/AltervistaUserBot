@@ -13,29 +13,15 @@ $lista_admin = [
   12344567,  //un id probabilmente inesistente
 ];
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 //header("Content-Type: text/plain");
-ini_set('display_errors', TRUE);
+ini_set('display_errors', true);
 error_reporting(E_ALL);
 if (!file_exists('bot.lock')) {
-	touch('bot.lock');
+    touch('bot.lock');
 }
 $lock = fopen('bot.lock', 'r+');
 flock($lock, LOCK_EX);
 
-require __DIR__ . '/phar.php';
-require __DIR__ . '/HttpProxy.php';
-require __DIR__ . '/functions.php';
+require __DIR__.'/phar.php';
+require __DIR__.'/HttpProxy.php';
+require __DIR__.'/functions.php';
