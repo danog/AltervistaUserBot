@@ -2,7 +2,9 @@
 
 function closeConnection($message = 'OK!')
 {
-    if (php_sapi_name() === 'cli') return;
+    if (php_sapi_name() === 'cli') {
+        return;
+    }
     ob_end_clean();
     header('Connection: close');
     ignore_user_abort(true);
