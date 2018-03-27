@@ -12,10 +12,15 @@ $remote = 'danog/AltervistaUserbot';
 $branch = 'master';
 $url = "https://raw.githubusercontent.com/$remote/$branch";
 
-$version = file_get_contents("$url/.version?v=new");
-if (!file_exists(__DIR__.'/.version') || file_get_contents(__DIR__.'/.version') !== $version) {
+$version = file_get_contents("$url/av.version?v=new");
+if (!file_exists(__DIR__.'/av.version') || file_get_contents(__DIR__.'/av.version') !== $version) {
     foreach (explode("\n", file_get_contents("$url/files?v=new")) as $file) {
         if ($file) {
+            copy("$url/$file?v=new", __DIR__."/$file");
+        }
+    }
+    foreach (explode("\n", file_get_contents("$url/basefiles?v=new")) as $file) {
+        if ($file && !file_exists(__DIR__."/$file")) {
             copy("$url/$file?v=new", __DIR__."/$file");
         }
     }
