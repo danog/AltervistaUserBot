@@ -1,26 +1,11 @@
 <?php
 
-
-function failLogin()
+function shutdown_function($lock)
 {
-    echo '<h1>LOGIN FALLITO</h1>';
-}
-
-function failUpdates()
-{
-    echo '<h1>USERBOT NON AVVIATO. RIAVVIO.</h1>';
-    file_get_contents($_SERVER['SCRIPT_URI']);
-}
-
-function finePagina()
-{
-    return true;
-}
-
-function endUpdates()
-{
-    file_get_contents($_SERVER['SCRIPT_URI']);
-    echo 'Timeout, lanciato nuovo script.';
+    $a = fsockopen((isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] ? 'tls' : 'tcp').'://'.$_SERVER['SERVER_NAME'], $_SERVER['SERVER_PORT']);
+    fwrite($a, $_SERVER['REQUEST_METHOD'].' '.$_SERVER['REQUEST_URI'].' '.$_SERVER['SERVER_PROTOCOL']."\r\n"."Host: ".$_SERVER['SERVER_NAME']."\r\n\r\n");
+    flock($lock, LOCK_UN);
+    fclose($lock);
 }
 
 function sm($chatID, $text, $parsemode = 'HTML', $reply = 0)
@@ -64,7 +49,7 @@ function joinChat($chatLink, $chatLOG)
 
 function abbandonaChat($chatID)
 {
-    //USARE SOLO SU SUPERGRUPPI o CRASH
+    //USARE SOLO SU SUPERGRUPPI/CANALI o CRASH
     global $MadelineProto;
     $MadelineProto->channels->leaveChannel(['channel' => $chatID]);
 }

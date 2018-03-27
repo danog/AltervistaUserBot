@@ -1,16 +1,25 @@
 <?php
 
 require '_config.php';
-register_shutdown_function('failUpdates');
 
 $MadelineProto = new \danog\MadelineProto\API('session.madeline');
+$MadelineProto->start();
 
-register_shutdown_function('endUpdates');
-echo '<h1>USERBOT PARTITO</h1>';
+
+ob_end_clean();
+header("Connection: close");
+ignore_user_abort(true);
+ob_start();
+echo('<html><body><h1>OK!</h1></body</html>');
+$size = ob_get_length();
+header("Content-Length: $size");
+header("Content-Type: text/html");
+ob_end_flush();
+flush();
 
 $running = true;
 $offset = 0;
-$lastser = time();
+$started = time();
 
 try {
     while ($running) {

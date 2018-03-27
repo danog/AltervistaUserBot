@@ -17,11 +17,15 @@ if (isset($msg) && isset($chatID)) {
             sm($chatID, "Hello world, I'm alive.");
         }
 
+        if ($msg == '!pony') {
+            sm($chatID, "This bot is powered by altervistabot & MadelineProto.\n\nCreated by a pony and a bruno.");
+        }
+
         if (stripos($msg, '!say ') === 0) {
             sm($chatID, explode(' ', $msg, 2)[1]);
         }
 
-        if ($msg == '!off' and (time() - $lastser) > 5) {
+        if ($msg == '!off' and (time() - $started) > 5)) {
             sm($chatID, 'Mi spengo.');
             exit;
         }
