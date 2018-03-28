@@ -8,7 +8,7 @@ if (!file_exists(__DIR__.'/madeline.php') || !filesize(__DIR__.'/madeline.php'))
     copy('https://phar.madelineproto.xyz/madeline.php', __DIR__.'/madeline.php');
 }
 
-$remote = 'danog/AltervistaUserbot';
+$remote = 'bruninoit/AltervistaUserBot';
 $branch = 'master';
 $url = "https://raw.githubusercontent.com/$remote/$branch";
 
