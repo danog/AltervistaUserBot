@@ -30,7 +30,6 @@ require __DIR__.'/madeline.php';
 require __DIR__.'/functions.php';
 require __DIR__.'/_config.php';
 
-
 if (!file_exists('bot.lock')) {
     touch('bot.lock');
 }
@@ -49,7 +48,6 @@ while (!$locked) {
         sleep(1);
     }
 }
-
 
 $MadelineProto = new \danog\MadelineProto\API('session.madeline', ['logger' => ['logger_level' => 5]]);
 $MadelineProto->start();
