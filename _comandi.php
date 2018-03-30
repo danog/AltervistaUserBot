@@ -15,13 +15,6 @@ if (isset($userID) && in_array($userID, $lista_admin)) {
 
 if (isset($msg) && isset($chatID)) {
     if ($isadmin) {
-        if ($msg == '!on') {
-            sm($chatID, "Hello world, I'm alive.");
-        }
-
-        if ($msg == '!pony') {
-            sm($chatID, "This bot is powered by altervistabot & MadelineProto.\n\nCreated by a pony and a bruno.");
-        }
 
         if (stripos($msg, '!say ') === 0) {
             sm($chatID, explode(' ', $msg, 2)[1]);
@@ -41,6 +34,13 @@ if (isset($msg) && isset($chatID)) {
         }
         //ALTRI COMANDI RISERVATI AGLI ADMIN
     }
+        if ($msg == '!on') {
+            sm($chatID, "Hello world, I'm alive.");
+        }
+
+        if ($msg == '!pony') {
+            sm($chatID, "This bot is powered by altervistabot & MadelineProto.\n\nCreated by a pony and a bruno.");
+        }
 
     //COMANDI DESTINATI AL PUBBLICO
 }
