@@ -26,6 +26,10 @@ if (!file_exists(__DIR__.'/av.version') || file_get_contents(__DIR__.'/av.versio
     }
 }
 
+require __DIR__.'/madeline.php';
+require __DIR__.'/functions.php';
+require __DIR__.'/_config.php';
+
 if (!file_exists('bot.lock')) {
     touch('bot.lock');
 }
@@ -44,10 +48,6 @@ while (!$locked) {
         sleep(1);
     }
 }
-
-require __DIR__.'/madeline.php';
-require __DIR__.'/functions.php';
-require __DIR__.'/_config.php';
 
 $MadelineProto = new \danog\MadelineProto\API('session.madeline', ['logger' => ['logger_level' => 5]]);
 $MadelineProto->start();
