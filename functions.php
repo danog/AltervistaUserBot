@@ -2,7 +2,7 @@
 
 function closeConnection($message = 'OK!')
 {
-    if (php_sapi_name() === 'cli') {
+    if (php_sapi_name() === 'cli' || isset($GLOBALS['exited'])) {
         return;
     }
     @ob_end_clean();
@@ -15,6 +15,7 @@ function closeConnection($message = 'OK!')
     header('Content-Type: text/html');
     ob_end_flush();
     flush();
+    $GLOBALS['exited'] = true;
 }
 
 function shutdown_function($lock)
